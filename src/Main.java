@@ -162,7 +162,7 @@ public class Main {
          if (x>=0&&x<SIZE&&y>=0&&y<SIZE&& fields[x][y]==EMPTY_VALUE){
              fields[x][y] = us;
          } else {
-             System.out.println("Eta yachejka ["+(x)+"]["+(y)+"] uge zanyata."+fields[x][y]);
+             System.out.println("Eta yachejka ["+(x)+"]["+(y)+"] уже занята или недоступна.");
              printFields();
              getUserStep(us);
          }
