@@ -24,7 +24,7 @@ public class Main {
         game_done=0;
     }
 
-    private static boolean check_game_status(){
+    private static boolean check_game_status(char[][] fields){
 
              existempty=0;
         //1  po gorizontali
@@ -40,6 +40,7 @@ public class Main {
                     u2++;
                 }
             }
+            if (u1==3||u2==3) break;
         }
         if (u1==3) {
             game_done=1;
@@ -53,7 +54,7 @@ public class Main {
         }
 
          //2 po vertikali
-
+        u1=0;u2=0;
         for (int i=0;i<SIZE;i++){
             u1=0;u2=0;
             for(int j=0;j<SIZE;j++){
@@ -65,6 +66,7 @@ public class Main {
                     u2++;
                 }
             }
+            if (u1==3||u2==3) break;
         }
         if (u1==3) {
             game_done=1;
@@ -309,12 +311,21 @@ int x = getInteger();
     public static void main(String[] args) {
        clear_fields();
 
-       printFields();
+        printFields();
 
+/*       fields =new char[][] {{'0','X','X'},
+                              {'0','X','X'},
+                              {'X','0','0'}};
+        if (check_game_status(fields)){
+            printDoneMsg();
+
+        }
+  */
         while (game_done==0){
+
             getUserStep(player1Symbol);
             printFields();
-            if (check_game_status()){
+            if (check_game_status(fields)){
                 printDoneMsg();
                 break;
             }
@@ -325,7 +336,7 @@ int x = getInteger();
                 getMachineStep(player1Symbol, player2Symbol);
             }
             printFields();
-            if (check_game_status()){
+            if (check_game_status(fields)){
                 printDoneMsg();
                 break;
             }
