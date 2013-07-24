@@ -143,11 +143,11 @@ public class Main {
      private static void printDoneMsg(){
          if (game_done==1){
              if (whoWin==1) {
-                 System.out.println("User 1 WIN!");
+                 System.out.println("Игрок 1 выиграл!");
              } else if (whoWin==2){
-                 System.out.println("User 2 WIN!");
+                 System.out.println("Компьютер выиграл!");
              } else {
-                 System.out.println("done.");
+                 System.out.println("ничья.");
              }
          }
      }
