@@ -9,7 +9,7 @@ public class Main {
     private static final char player1Symbol = 'X';
     private static final char player2Symbol = '0';
     private static int whoWin=0;
-    private static char[][] fields = new char[SIZE][SIZE];
+    private static char[][] fields = new char[SIZE][SIZE];      //игровое поле
     private static int game_done = 0;
 
 
@@ -24,7 +24,7 @@ public class Main {
         game_done=0;
     }
 
-    private static void check_game_status(){
+    private static boolean check_game_status(){
 
              existempty=0;
         //1  po gorizontali
@@ -44,10 +44,12 @@ public class Main {
         if (u1==3) {
             game_done=1;
             whoWin=1;
+            return true;
         }
         if (u2==3) {
             game_done=1;
             whoWin=2;
+            return true;
         }
 
          //2 po vertikali
@@ -67,10 +69,12 @@ public class Main {
         if (u1==3) {
             game_done=1;
             whoWin=1;
+            return true;
         }
         if (u2==3) {
             game_done=1;
             whoWin=2;
+            return true;
         }
 
         //3. diagonal
@@ -87,10 +91,12 @@ public class Main {
         if (u1==3) {
             game_done=1;
             whoWin=1;
+            return true;
         }
         if (u2==3) {
             game_done=1;
             whoWin=2;
+            return true;
         }
 
         u1=0;
@@ -107,17 +113,23 @@ public class Main {
         if (u1==3) {
             game_done=1;
             whoWin=1;
+            return true;
         }
         if (u2==3) {
             game_done=1;
             whoWin=2;
+            return true;
         }
 
-
+        if (existempty==0){
+            game_done=1;
+            return true;
+        }
+        return false;
     }
 
 
-    public static void display2(){
+    public static void printFields(){
 
         for (int i=0;i<SIZE;i++){
             for(int j=0;j<SIZE;j++){
@@ -128,7 +140,17 @@ public class Main {
     }
 
 
-
+     private static void printDoneMsg(){
+         if (game_done==1){
+             if (whoWin==1) {
+                 System.out.println("User 1 WIN!");
+             } else if (whoWin==2){
+                 System.out.println("User 2 WIN!");
+             } else {
+                 System.out.println("done.");
+             }
+         }
+     }
 
      private static void getUserStep(char us){
 
@@ -141,19 +163,30 @@ public class Main {
              fields[x][y] = us;
          } else {
              System.out.println("Eta yachejka ["+(x)+"]["+(y)+"] uge zanyata."+fields[x][y]);
-             display2();
+             printFields();
              getUserStep(us);
          }
      }
 
-    private static void calcstep(char opponent,char mySymbol) {
-        int[][] weight = new int[SIZE][SIZE];
+    private static void getMachineStep(char opponent, char mySymbol) {
+        float[][] weight = new float[SIZE][SIZE];
 
+        //default weight
         for (int i=0;i<SIZE;i++){
             for(int j=0;j<SIZE;j++){
                 weight[i][j]=0;
             }
         }
+        for (int i=0;i<SIZE;i++){
+          weight[i][(SIZE-i-1)]+=0.25;
+        }
+        for (int i=0;i<SIZE;i++){
+            weight[i][i]+=0.25;
+        }
+
+
+            //Calculate weight.
+
 //1. gorizont
         boolean clearLineWeight;
         clearLineWeight = false;
@@ -244,9 +277,9 @@ public class Main {
             }
         }
 
-     //         display(weight);
-        int maxI=0,maxJ=0,maxval=-1;
-     //   System.out.println("Max I"+maxI+" maxJ "+maxJ);
+
+        float maxval=-1;
+        int maxI=0,maxJ=0;
         for (int i=0;i<SIZE;i++){
             for(int j=0;j<SIZE;j++){
                 if (weight[i][j]>maxval){
@@ -255,7 +288,6 @@ public class Main {
                 }
             }
         }
-     //  System.out.println("Max I"+maxI+" maxJ "+maxJ);
        fields[maxI][maxJ] = mySymbol;
     }
 
@@ -263,37 +295,29 @@ public class Main {
     public static void main(String[] args) {
        clear_fields();
 
-       display2();
+       printFields();
 
         while (game_done==0){
             getUserStep(player1Symbol);
-            display2();
-            check_game_status();
-            if (game_done==1){
-                if (whoWin==1) {
-                System.out.println("User 1 WIN!");
-                } else {
-                    System.out.println("User 2 WIN!");
-                }
+            printFields();
+            if (check_game_status()){
+                printDoneMsg();
+                break;
             }
-          //  System.out.println("Avail "+existempty);
+
+
             System.out.println("---------------------------------");
             if (existempty>0){
-                calcstep(player1Symbol,player2Symbol);
+                getMachineStep(player1Symbol, player2Symbol);
             }
-            display2();
-            check_game_status();
-            if (game_done==1){
-                if (whoWin==1) {
-                    System.out.println("User 1 WIN!");
-                } else {
-                    System.out.println("User 2 WIN!");
-                }
+            printFields();
+            if (check_game_status()){
+                printDoneMsg();
+                break;
             }
-            if (existempty==0) {
-                game_done=1;
-                System.out.println("no win.");
-            }
+            System.out.println("---------------------------------\n\n\n");
+
+
         }
 
     }
