@@ -152,13 +152,27 @@ public class Main {
          }
      }
 
+    private static int getInteger(){
+        Scanner readHod  = new Scanner(System.in);
+        int x=0;
+        try{
+            x = readHod.nextInt();
+        }   catch (Exception e){
+            System.out.print("Введите число!");
+            return getInteger();
+        }
+        return x;
+    }
+
      private static void getUserStep(char us){
 
          Scanner readHod  = new Scanner(System.in);
-         System.out.print("Stroka: ");
-         int x = readHod.nextInt();
+         System.out.print("строка: ");
+int x = getInteger();
+
          System.out.print("Kolonka: ");
-         int y = readHod.nextInt();
+         int y = getInteger();
+
          if (x>=0&&x<SIZE&&y>=0&&y<SIZE&& fields[x][y]==EMPTY_VALUE){
              fields[x][y] = us;
          } else {
