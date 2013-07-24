@@ -158,7 +158,7 @@ public class Main {
         try{
             x = readHod.nextInt();
         }   catch (Exception e){
-            System.out.print("Введите число!");
+            System.out.print("Ошибка! Введите число: ");
             return getInteger();
         }
         return x;
@@ -170,13 +170,13 @@ public class Main {
          System.out.print("строка: ");
 int x = getInteger();
 
-         System.out.print("Kolonka: ");
+         System.out.print("колонка: ");
          int y = getInteger();
 
          if (x>=0&&x<SIZE&&y>=0&&y<SIZE&& fields[x][y]==EMPTY_VALUE){
              fields[x][y] = us;
          } else {
-             System.out.println("Eta yachejka ["+(x)+"]["+(y)+"] уже занята или недоступна.");
+             System.out.println("Эта ячейка ["+(x)+"]["+(y)+"] уже занята или недоступна.");
              printFields();
              getUserStep(us);
          }
