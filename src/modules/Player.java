@@ -90,9 +90,15 @@ public class Player {
             weight[i][i]+=0.25;
         }
         */
-        weight = new float[][]{{(float) 0.25, 0, (float) 0.25}, { (float) 0.25,  (float) 0.5,  (float) 0.25}, { (float) 0.25, 0,  (float) 0.25}};
+        weight = new float[][]{
+                {(float) 0.25, 0, (float) 0.25},
+                { 0,  (float) 0.5,  0},
+                { (float) 0.25, 0,  (float) 0.25}
+        };
 
         //Calculate weight.
+        System.out.println("default array");
+        printWeight(weight);
 
 //1. gorizont
         boolean clearLineWeight;
@@ -103,7 +109,7 @@ public class Player {
             clearLineWeight = false;
             for(int j=0;j<currFields.SIZE;j++){
                 if (currFields.checkOwner(i,j,opponent.mySymbol)) {
-                    rowe*=2;
+                    rowe*=3;
                 }
 
                 if (currFields.checkOwner(i,j,this.mySymbol)) {
@@ -120,14 +126,15 @@ public class Player {
             }
 
         }
-
+        System.out.println("строки просчитаны");
+        printWeight(weight);
 //2. stolbci
         for (int i=0;i<currFields.SIZE;i++){
             rowe=2;
             clearLineWeight = false;
             for(int j=0;j<currFields.SIZE;j++){
                 if (currFields.checkOwner(j,i,opponent.mySymbol)) {
-                    rowe*=2;
+                    rowe*=3;
                 }
 
                 if (currFields.checkOwner(j,i,this.mySymbol)) {
@@ -144,13 +151,14 @@ public class Player {
             }
 
         }
-
+        System.out.println("столбцы просчитаны");
+        printWeight(weight);
 
         clearLineWeight = false;
         rowe=2;
         for (int i=0;i<currFields.SIZE;i++){
             if (currFields.checkOwner(i,i,opponent.mySymbol)) {
-                rowe*=2;
+                rowe*=3;
             }
             if (currFields.checkOwner(i, i, this.mySymbol)) {
                 clearLineWeight = true;
@@ -164,7 +172,8 @@ public class Player {
                 }
             }
         }
-
+        System.out.println("Диагональ нисходящая 1-5-9");
+        printWeight(weight);
 
         rowe=2;
         clearLineWeight = false;
@@ -185,6 +194,7 @@ public class Player {
                 }
             }
         }
+        System.out.println("диагональ восходящая 7-5-3");
         printWeight(weight);
 
         float maxval=-1;
