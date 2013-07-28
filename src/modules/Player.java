@@ -96,9 +96,6 @@ public class Player {
                 { (float) 0.25, 0,  (float) 0.25}
         };
 
-        //Calculate weight.
-        System.out.println("default array");
-        printWeight(weight);
 
 //1. gorizont
         boolean clearLineWeight;
@@ -126,8 +123,7 @@ public class Player {
             }
 
         }
-        System.out.println("строки просчитаны");
-        printWeight(weight);
+
 //2. stolbci
         for (int i=0;i<currFields.SIZE;i++){
             rowe=2;
@@ -151,8 +147,6 @@ public class Player {
             }
 
         }
-        System.out.println("столбцы просчитаны");
-        printWeight(weight);
 
         clearLineWeight = false;
         rowe=2;
@@ -172,8 +166,6 @@ public class Player {
                 }
             }
         }
-        System.out.println("Диагональ нисходящая 1-5-9");
-        printWeight(weight);
 
         rowe=2;
         clearLineWeight = false;
@@ -194,8 +186,6 @@ public class Player {
                 }
             }
         }
-        System.out.println("диагональ восходящая 7-5-3");
-        printWeight(weight);
 
         float maxval=-1;
         int maxI=0,maxJ=0;
